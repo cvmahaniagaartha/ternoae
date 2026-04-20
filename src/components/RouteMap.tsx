@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo } from "react";
 import { MapContainer, TileLayer, Marker, Polyline, useMapEvents, useMap } from "react-leaflet";
 import L from "leaflet";
 
@@ -70,13 +70,13 @@ const RouteMap = ({ pickup, destination, route, selecting, onMapClick }: Props) 
         {destination && <Marker position={[destination.lat, destination.lng]} icon={destIcon} />}
         {route.length > 1 && (
           <Polyline
-            positions={route.map((p) => [p.lat, p.lng])}
+            positions={route.map((p) => [p.lat, p.lng] as [number, number])}
             pathOptions={{ color: "#000", weight: 6, opacity: 1 }}
           />
         )}
         {route.length > 1 && (
           <Polyline
-            positions={route.map((p) => [p.lat, p.lng])}
+            positions={route.map((p) => [p.lat, p.lng] as [number, number])}
             pathOptions={{ color: "#FFD600", weight: 3, opacity: 1 }}
           />
         )}
