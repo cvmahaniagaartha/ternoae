@@ -413,21 +413,44 @@ const Index = () => {
               </div>
             </div>
 
-            {/* Payment method */}
-            <div className="brutal-lg bg-background p-3 flex items-center gap-3">
-              <label htmlFor="pay" className="text-xs font-black uppercase shrink-0">
-                Pembayaran
-              </label>
-              <select
-                id="pay"
-                value={paymentMethod}
-                onChange={(e) => setPaymentMethod(e.target.value as "qris" | "tunai")}
-                className="brutal ml-auto bg-background px-3 py-2 text-xs font-black uppercase outline-none focus:bg-primary/30"
-              >
-                <option value="qris">QRIS</option>
-                <option value="tunai">Tunai</option>
-              </select>
-            </div>
+           {/* Payment method */}
+<div className="brutal-lg bg-background p-3">
+  <div className="text-xs font-black uppercase mb-2">
+    Pembayaran
+  </div>
+
+  <div className="grid grid-cols-2 gap-2">
+    {/* QRIS */}
+    <button
+      onClick={() => setPaymentMethod("qris")}
+      className={`
+        brutal-btn flex items-center gap-2 px-3 py-3 text-left
+        ${paymentMethod === "qris" ? "bg-primary" : "bg-background"}
+      `}
+    >
+      <div className="text-lg">📱</div>
+      <div>
+        <div className="text-xs font-black uppercase">QRIS</div>
+        <div className="text-[10px] opacity-70">Scan & bayar</div>
+      </div>
+    </button>
+
+    {/* TUNAI */}
+    <button
+      onClick={() => setPaymentMethod("tunai")}
+      className={`
+        brutal-btn flex items-center gap-2 px-3 py-3 text-left
+        ${paymentMethod === "tunai" ? "bg-primary" : "bg-background"}
+      `}
+    >
+      <div className="text-lg">💵</div>
+      <div>
+        <div className="text-xs font-black uppercase">Tunai</div>
+        <div className="text-[10px] opacity-70">Bayar ke driver</div>
+      </div>
+    </button>
+  </div>
+</div>
 
             <button
               type="submit"
