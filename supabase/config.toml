@@ -1,0 +1,4 @@
+project_id = "ftddlxglcukhpnsvtkfu"
+
+[functions.generate-qris]
+verify_jwt = false
