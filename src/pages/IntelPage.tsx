@@ -1,4 +1,7 @@
-import { useState } from "react";
+import { useEffect } from "react";
+import Navbar from "@/components/Navbar";
+
+const WHATSAPP_NUMBER = "6285155145788";
 
 type Service = {
   title: string;
@@ -32,92 +35,71 @@ const services: Service[] = [
   },
 ];
 
+const buildWaUrl = (title: string) => {
+  const msg = `Halo TernoAE, saya tertarik dengan layanan *${title}*. Mohon informasi lebih lanjut mengenai prosedur dan biayanya. Terima kasih.`;
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+};
+
 const ServiceCard = ({ title, desc }: Service) => {
   return (
-    <div className="brutal-lg bg-background p-4 transition hover:-translate-x-[2px] hover:-translate-y-[2px]">
+    <div className="brutal-lg bg-background p-4 flex flex-col">
       <div className="text-sm font-black uppercase mb-1">{title}</div>
-      <div className="text-xs opacity-70 leading-relaxed">{desc}</div>
+      <div className="text-xs opacity-70 leading-relaxed mb-3 flex-1">{desc}</div>
+      <a
+        href={buildWaUrl(title)}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="brutal-btn bg-primary px-3 py-2 text-[11px] font-black uppercase text-center"
+      >
+        Pesan via WhatsApp
+      </a>
     </div>
   );
 };
 
 export default function IntelPage() {
-  const [form, setForm] = useState("");
-  const [payment, setPayment] = useState<"qris" | "tunai">("qris");
+  useEffect(() => {
+    document.title = "Jasa Intel — TernoAE Jepara";
+    const desc =
+      "Layanan OSINT, cek latar belakang, jejak digital, konsultasi keamanan, jasa suruh, dan verifikasi lapangan di Jepara & Jawa Tengah.";
+    let m = document.querySelector('meta[name="description"]');
+    if (!m) {
+      m = document.createElement("meta");
+      m.setAttribute("name", "description");
+      document.head.appendChild(m);
+    }
+    m.setAttribute("content", desc);
+  }, []);
 
   return (
-    <div className="min-h-screen bg-background text-foreground p-4 md:p-6">
-      
-      {/* HERO */}
-      <div className="brutal-lg bg-primary p-6 mb-6">
-        <div className="text-xl md:text-2xl font-black uppercase">
-          TernoAE Intelligence Service
-        </div>
-        <div className="text-xs md:text-sm mt-2 max-w-xl leading-relaxed">
-          Layanan riset informasi berbasis data publik dan kebutuhan operasional lapangan.
-          Dirancang untuk penggunaan yang legal dan profesional.
-        </div>
-      </div>
+    <div className="min-h-screen bg-background text-foreground">
+      <Navbar />
 
-      {/* SERVICES */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 mb-6">
-        {services.map((s, i) => (
-          <ServiceCard key={i} {...s} />
-        ))}
-      </div>
+      <main className="p-4 md:p-6">
+        {/* HERO */}
+        <header className="brutal-lg bg-primary p-6 mb-6">
+          <h1 className="text-xl md:text-2xl font-black uppercase">
+            TernoAE Intelligence Service
+          </h1>
+          <p className="text-xs md:text-sm mt-2 max-w-xl leading-relaxed">
+            Layanan riset informasi berbasis data publik dan kebutuhan
+            operasional lapangan. Dirancang untuk penggunaan yang legal dan
+            profesional.
+          </p>
+        </header>
 
-      {/* FORM */}
-      <div className="brutal-lg bg-background p-4 mb-6">
-        <div className="text-sm font-black uppercase mb-2">
-          Ajukan Permintaan
-        </div>
+        {/* SERVICES */}
+        <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-6">
+          {services.map((s, i) => (
+            <ServiceCard key={i} {...s} />
+          ))}
+        </section>
 
-        <textarea
-          value={form}
-          onChange={(e) => setForm(e.target.value)}
-          placeholder="Jelaskan kebutuhan Anda secara singkat dan jelas"
-          className="brutal w-full p-3 text-xs outline-none mb-3 resize-none"
-          rows={4}
-        />
-
-        <button className="brutal-btn bg-primary px-4 py-2 text-xs font-black uppercase">
-          Kirim Permintaan
-        </button>
-      </div>
-
-      {/* PAYMENT */}
-      <div className="brutal-lg bg-background p-4 mb-6">
-        <div className="text-sm font-black uppercase mb-2">
-          Metode Pembayaran
-        </div>
-
-        <div className="grid grid-cols-2 gap-2">
-          <button
-            onClick={() => setPayment("qris")}
-            className={`brutal-btn px-3 py-3 text-left ${
-              payment === "qris" ? "bg-primary" : "bg-background"
-            }`}
-          >
-            <div className="text-xs font-black uppercase">QRIS</div>
-            <div className="text-[10px] opacity-70">Pembayaran digital</div>
-          </button>
-
-          <button
-            onClick={() => setPayment("tunai")}
-            className={`brutal-btn px-3 py-3 text-left ${
-              payment === "tunai" ? "bg-primary" : "bg-background"
-            }`}
-          >
-            <div className="text-xs font-black uppercase">Tunai</div>
-            <div className="text-[10px] opacity-70">Bayar langsung</div>
-          </button>
-        </div>
-      </div>
-
-      {/* FOOTER */}
-      <div className="text-[10px] opacity-60 text-center">
-        © 2026 TernoAE Service — Penggunaan sesuai hukum yang berlaku
-      </div>
+        {/* FOOTER */}
+        <footer className="text-[10px] opacity-60 text-center">
+          © 2026 TernoAE Service — Penggunaan sesuai hukum yang berlaku
+        </footer>
+      </main>
     </div>
   );
 }

@@ -273,9 +273,17 @@ const Index = () => {
             </span>
             <span className="text-xl sm:text-2xl font-black tracking-tight">TernoAE</span>
           </a>
-          <span className="brutal bg-background px-2 py-1 text-[10px] sm:text-xs font-bold uppercase">
-            Jawa Tengah
-          </span>
+          <div className="flex items-center gap-2">
+            <a
+              href="/intel"
+              className="brutal-btn bg-background px-3 py-1.5 text-[10px] sm:text-xs font-black uppercase"
+            >
+              Jasa Intel
+            </a>
+            <span className="brutal bg-background px-2 py-1 text-[10px] sm:text-xs font-bold uppercase hidden sm:inline-block">
+              Jawa Tengah
+            </span>
+          </div>
         </div>
       </header>
 
