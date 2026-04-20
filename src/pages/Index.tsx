@@ -414,33 +414,19 @@ const Index = () => {
             </div>
 
             {/* Payment method */}
-            <div className="brutal-lg bg-background p-4 space-y-2">
-              <label className="block text-xs font-black uppercase">Metode Pembayaran</label>
-              <div className="grid grid-cols-2 gap-2">
-                <button
-                  type="button"
-                  onClick={() => setPaymentMethod("qris")}
-                  className={`brutal-btn px-3 py-3 text-xs font-black uppercase ${
-                    paymentMethod === "qris" ? "bg-primary" : "bg-background"
-                  }`}
-                >
-                  📱 QRIS
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setPaymentMethod("tunai")}
-                  className={`brutal-btn px-3 py-3 text-xs font-black uppercase ${
-                    paymentMethod === "tunai" ? "bg-accent text-accent-foreground" : "bg-background"
-                  }`}
-                >
-                  💵 Tunai
-                </button>
-              </div>
-              <p className="text-[11px] font-bold text-muted-foreground">
-                {paymentMethod === "qris"
-                  ? "Bayar dulu via QRIS, lalu konfirmasi WhatsApp."
-                  : "Bayar tunai ke driver. Langsung dikirim ke WhatsApp."}
-              </p>
+            <div className="brutal-lg bg-background p-3 flex items-center gap-3">
+              <label htmlFor="pay" className="text-xs font-black uppercase shrink-0">
+                Pembayaran
+              </label>
+              <select
+                id="pay"
+                value={paymentMethod}
+                onChange={(e) => setPaymentMethod(e.target.value as "qris" | "tunai")}
+                className="brutal ml-auto bg-background px-3 py-2 text-xs font-black uppercase outline-none focus:bg-primary/30"
+              >
+                <option value="qris">QRIS</option>
+                <option value="tunai">Tunai</option>
+              </select>
             </div>
 
             <button
